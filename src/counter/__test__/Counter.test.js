@@ -2,45 +2,40 @@ import React from "react"
 import Counter from "../Counter"
 import { render, fireEvent } from "@testing-library/react"
 import "@testing-library/jest-dom/extend-expect"
+import renderer from 'react-test-renderer';
 
-let getByTestId;
+let getByTestId, headerEl, counterEl, inputEl, subBtnEl, addBtnEl;
 beforeEach(() => {
     const component = render(<Counter />);
     getByTestId = component.getByTestId;
+    headerEl = getByTestId('header');
+    counterEl = getByTestId('counter');
+    inputEl = getByTestId('input');
+    subBtnEl = getByTestId('sub-btn');
+    addBtnEl = getByTestId('add-btn');
 });
 
 test("header renders with correct text", () => {
-    const headerEl = getByTestId('header');
-
     expect(headerEl.textContent).toBe("My Counter");
 });
 
 test("counter initially start with text of 0", () => {
-    const counterEl = getByTestId('counter');
-
     expect(counterEl.textContent).toBe("0");
 });
 
 test("input contains initial value of 1", () => {
-    const inputEl = getByTestId('input');
-
     expect(inputEl.value).toBe("1");
 });
 
 test("add button render with +", () => {
-    const btnEl = getByTestId('add-btn');
-
-    expect(btnEl.textContent).toBe("+");
+    expect(addBtnEl.textContent).toBe("+");
 });
 
 test("subtract button render with -", () => {
-    const btnEl = getByTestId('sub-btn');
-
-    expect(btnEl.textContent).toBe("-");
+    expect(subBtnEl.textContent).toBe("-");
 });
 
 test("change value of input works correctly", () => {
-    const inputEl = getByTestId('input');
     expect(inputEl.value).toBe("1")
     fireEvent.change(inputEl, {
         target: {
@@ -51,29 +46,21 @@ test("change value of input works correctly", () => {
 });
 
 test("click on plus btn adds 1 to counter", () => {
-    const btnEl = getByTestId('add-btn');
-    const counterEl = getByTestId('counter');
-
     expect(counterEl.textContent).toBe("0");
-    
-    fireEvent.click(btnEl);
-
+    fireEvent.click(addBtnEl);
     expect(counterEl.textContent).toBe("1");
 });
 
 test("click on subtract btn sub 1 to counter", () => {
-    const btnEl = getByTestId('sub-btn');
-    const counterEl = getByTestId('counter');
-
     expect(counterEl.textContent).toBe("0");
     
-    fireEvent.click(btnEl);
+    fireEvent.click(subBtnEl);
     
     expect(counterEl.textContent).toBe("-1");
 });
 
 test("changing input value then clicking on add btn works correctly", () => {
-    const btnEl = getByTestId('add-btn');
+    const addBtnEl = getByTestId('add-btn');
     const counterEl = getByTestId('counter');
     const inputEl = getByTestId('input');
 
@@ -82,15 +69,13 @@ test("changing input value then clicking on add btn works correctly", () => {
             value: "5"
         }
     });
+
     expect(counterEl.textContent).toBe("0");
-    fireEvent.click(btnEl);
+    fireEvent.click(addBtnEl);
     expect(counterEl.textContent).toBe("5");
 });
 
 test("changing input value then clicking on sub btn works correctly", () => {
-    const btnEl = getByTestId('sub-btn');
-    const counterEl = getByTestId('counter');
-    const inputEl = getByTestId('input');
 
     fireEvent.change(inputEl, {
         target: {
@@ -98,15 +83,11 @@ test("changing input value then clicking on sub btn works correctly", () => {
         }
     });
     expect(counterEl.textContent).toBe("0");
-    fireEvent.click(btnEl);
+    fireEvent.click(subBtnEl);
     expect(counterEl.textContent).toBe("-5");
 });
 
 test("adding and then subtracting leads to the correct counter number", () => {
-    const subBtnEl = getByTestId('sub-btn');
-    const addBtnEl = getByTestId('add-btn');
-    const counterEl = getByTestId('counter');
-    const inputEl = getByTestId('input');
 
     fireEvent.change(inputEl, {
         target: {
@@ -135,10 +116,6 @@ test("adding and then subtracting leads to the correct counter number", () => {
 });
 
 test("counter contains correct className", () => {
-    const addBtnEl = getByTestId('add-btn');
-    const subBtnEl = getByTestId('sub-btn');
-    const counterEl = getByTestId('counter');
-    const inputEl = getByTestId('input');
 
     expect(counterEl.className).toBe("");
     
@@ -162,4 +139,11 @@ test("counter contains correct className", () => {
     fireEvent.click(subBtnEl);
     expect(counterEl.className).toBe("bg-danger");
 
+});
+
+test('take the snap snap shot', () => {
+  const tree = renderer
+    .create(<Counter />)
+    .toJSON();
+  expect(tree).toMatchSnapshot();
 });

@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div>
+  <h2
+    data-testid="header"
+  >
+    My Counter
+  </h2>
+  <h3
+    className=""
+    data-testid="counter"
+  >
+    0
+  </h3>
+  <button
+    data-testid="add-btn"
+    onClick={[Function]}
+  >
+    +
+  </button>
+  <input
+    className="App"
+    data-testid="input"
+    onChange={[Function]}
+    type="number"
+    value={1}
+  />
+  <button
+    data-testid="sub-btn"
+    onClick={[Function]}
+  >
+    -
+  </button>
+</div>
+`;
+
+exports[`take the snap snap shot 1`] = `
+<div>
+  <h2
+    data-testid="header"
+  >
+    My Counter
+  </h2>
+  <h3
+    className=""
+    data-testid="counter"
+  >
+    0
+  </h3>
+  <button
+    data-testid="add-btn"
+    onClick={[Function]}
+  >
+    +
+  </button>
+  <input
+    className="App"
+    data-testid="input"
+    onChange={[Function]}
+    type="number"
+    value={1}
+  />
+  <button
+    data-testid="sub-btn"
+    onClick={[Function]}
+  >
+    -
+  </button>
+</div>
+`;
