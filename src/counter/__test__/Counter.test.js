@@ -60,10 +60,6 @@ test("click on subtract btn sub 1 to counter", () => {
 });
 
 test("changing input value then clicking on add btn works correctly", () => {
-    const addBtnEl = getByTestId('add-btn');
-    const counterEl = getByTestId('counter');
-    const inputEl = getByTestId('input');
-
     fireEvent.change(inputEl, {
         target: {
             value: "5"

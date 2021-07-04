@@ -50,6 +50,7 @@ export default function Counter() {
             <button 
             data-testid='sub-btn' 
             onClick={() => counter('sub')}>-</button>
+
         </div>
     )
 }
